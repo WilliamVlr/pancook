@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -646,55 +648,65 @@ fun MyRecipeScreen(navController: NavController) {
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxSize()
+    // New condition to check if myRecipe is empty
+    if (myRecipe.isEmpty()) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
-            items(myRecipe) { recipe ->
-                // Check the global upvotedRecipes list for the current upvote status
-                val isUpvoted = upvotedRecipes.contains(recipe)
-                val isBookmarked = bookmarkedRecipes.contains(recipe)
+            Text(text = "There is no Recipe yet")
+        }
+    } else {
+        Column(modifier = Modifier.fillMaxSize()) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxSize()
+            ) {
+                items(myRecipe) { recipe ->
+                    // Check the global upvotedRecipes list for the current upvote status
+                    val isUpvoted = upvotedRecipes.contains(recipe)
+                    val isBookmarked = bookmarkedRecipes.contains(recipe)
 
 
-                ReusableCard(
-                    imagePainter = painterResource(id = recipe.images.first()),
-                    title = recipe.title,
-                    description = recipe.recipeMaker,
-                    duration = recipe.duration,
-                    upvoteCount = recipe.upvoteCount, // Now read directly from the recipe object
-                    isBookmarked = isBookmarked,
-                    onBookmarkClick = {
-                        // Toggle bookmark status directly on the global list
-                        if (bookmarkedRecipes.contains(recipe)) {
-                            bookmarkedRecipes.remove(recipe)
-                        } else {
-                            bookmarkedRecipes.add(recipe)
+                    ReusableCard(
+                        imagePainter = painterResource(id = recipe.images.first()),
+                        title = recipe.title,
+                        description = recipe.recipeMaker,
+                        duration = recipe.duration,
+                        upvoteCount = recipe.upvoteCount, // Now read directly from the recipe object
+                        isBookmarked = isBookmarked,
+                        onBookmarkClick = {
+                            // Toggle bookmark status directly on the global list
+                            if (bookmarkedRecipes.contains(recipe)) {
+                                bookmarkedRecipes.remove(recipe)
+                            } else {
+                                bookmarkedRecipes.add(recipe)
+                            }
+                        },
+                        onDeleteClick = {
+                            myRecipe.remove(recipe)
+                            bookmarkedRecipes.remove(recipe) // Ensure it's removed from bookmarks too
+                            upvotedRecipes.remove(recipe) // Ensure it's removed from upvotes too
+                        },
+                        isUpvoted = isUpvoted, // Pass the status derived from the global list
+                        onUpvoteClick = {
+                            // Toggle upvote status directly on the global list
+                            if (upvotedRecipes.contains(recipe)) {
+                                upvotedRecipes.remove(recipe)
+                                recipe.upvoteCount-- // Decrement count directly on the recipe object
+                            } else {
+                                upvotedRecipes.add(recipe)
+                                recipe.upvoteCount++ // Increment count directly on the recipe object
+                            }
+                        },
+                        modifier = Modifier.clickable {
+                            navController.navigate(Screen.DetailRecipe.createRoute(recipe.id))
                         }
-                    },
-                    onDeleteClick = {
-                        myRecipe.remove(recipe)
-                        bookmarkedRecipes.remove(recipe) // Ensure it's removed from bookmarks too
-                        upvotedRecipes.remove(recipe) // Ensure it's removed from upvotes too
-                    },
-                    isUpvoted = isUpvoted, // Pass the status derived from the global list
-                    onUpvoteClick = {
-                        // Toggle upvote status directly on the global list
-                        if (upvotedRecipes.contains(recipe)) {
-                            upvotedRecipes.remove(recipe)
-                            recipe.upvoteCount-- // Decrement count directly on the recipe object
-                        } else {
-                            upvotedRecipes.add(recipe)
-                            recipe.upvoteCount++ // Increment count directly on the recipe object
-                        }
-                    },
-                    modifier = Modifier.clickable {
-                        navController.navigate(Screen.DetailRecipe.createRoute(recipe.id))
-                    }
-                )
+                    )
+                }
             }
         }
     }
