@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.ColorRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -46,6 +47,7 @@ import com.wesleyaldrich.pancook.ui.theme.poppins
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.border
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.wesleyaldrich.pancook.ui.navigation.Screen
@@ -202,7 +204,7 @@ fun AddRecipeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .background(darkBlue)
+                .background(colorResource(R.color.primary))
                 .padding(16.dp)
         ) {
             Text(
@@ -245,7 +247,7 @@ fun AddRecipeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .background(darkBlue)
+                .background(colorResource(R.color.primary))
                 .padding(16.dp)
         ) {
             Text(
@@ -292,7 +294,7 @@ fun AddRecipeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .background(darkBlue)
+                .background(colorResource(R.color.primary))
                 .padding(16.dp)
         ) {
             Text(
@@ -367,7 +369,7 @@ fun AddRecipeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .background(darkBlue)
+                .background(colorResource(R.color.primary))
                 .padding(16.dp)
         ) {
             Text(
@@ -450,7 +452,7 @@ fun AddRecipeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .background(darkBlue)
+                .background(colorResource(R.color.primary))
                 .padding(16.dp)
         ) {
             Text(
@@ -496,7 +498,7 @@ fun AddRecipeScreen(
                         .height(56.dp)
                         .padding(top = 24.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
-                        containerColor = darkBlue,
+                        containerColor = colorResource(R.color.primary),
                         contentColor = veryLightGreen
                     ),
                     border = BorderStroke(1.dp, veryLightGreen),
@@ -517,7 +519,7 @@ fun AddRecipeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .background(darkBlue)
+                .background(colorResource(R.color.primary))
                 .padding(16.dp)
         ) {
             Text(
@@ -565,7 +567,7 @@ fun AddRecipeScreen(
                         .height(56.dp)
                         .padding(top = 24.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
-                        containerColor = darkBlue,
+                        containerColor = colorResource(R.color.primary),
                         contentColor = veryLightGreen
                     ),
                     border = BorderStroke(1.dp, veryLightGreen),
@@ -649,7 +651,7 @@ fun AddRecipeScreen(
                     .height(56.dp)
                     .padding(start = 8.dp), // Space between buttons
                 shape = RoundedCornerShape(16.dp), // Consistent rounded corners
-                colors = ButtonDefaults.buttonColors(containerColor = darkBlue) // Dark blue background
+                colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.primary)) // Dark blue background
             ) {
                 Text("Create", style = MaterialTheme.typography.labelLarge, color = Color.White)
             }

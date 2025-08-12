@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp // ✅ FIXED: Add this import
@@ -103,7 +104,7 @@ fun CustomPanCookBar(navController: NavHostController, currentRoute: String?) {
                         onClick = { navController.navigate(Screen.Add.route) },
                         modifier = Modifier.offset(y = (-40).dp),
                         shape = CircleShape,
-                        containerColor = Color(5, 26, 57),
+                        containerColor = colorResource(R.color.primary),
                         contentColor = Color.White
                     ) {
                         Icon(Icons.Default.Add, contentDescription = "Add Recipe")
@@ -126,7 +127,6 @@ fun CustomPanCookBar(navController: NavHostController, currentRoute: String?) {
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    // ✅ This is the conditional red glow effect.
                     if (isSelected) {
                         Box(
                             modifier = Modifier
@@ -247,7 +247,7 @@ fun IconButtonPill(
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(50))
-            .background(Color(5, 26, 57))
+            .background(colorResource(R.color.primary))
             .clickable(onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 4.dp)
     ) {
