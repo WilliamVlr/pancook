@@ -36,6 +36,10 @@ import android.net.Uri // Important for video URIs
 // I'm keeping `videos = emptyList()` for the ones you provided previously,
 // or if you had a local video example, you'd need a hardcoded packageName or external URL.
 
+val myRecipe = mutableStateListOf<Recipe>().apply {
+
+}
+
 val allRecipes = mutableStateListOf<Recipe>().apply {
     addAll(
         listOf(
@@ -650,7 +654,7 @@ fun MyRecipeScreen(navController: NavController) {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxSize()
         ) {
-            items(allRecipes) { recipe ->
+            items(myRecipe) { recipe ->
                 // Check the global upvotedRecipes list for the current upvote status
                 val isUpvoted = upvotedRecipes.contains(recipe)
                 val isBookmarked = bookmarkedRecipes.contains(recipe)
@@ -672,7 +676,7 @@ fun MyRecipeScreen(navController: NavController) {
                         }
                     },
                     onDeleteClick = {
-                        allRecipes.remove(recipe)
+                        myRecipe.remove(recipe)
                         bookmarkedRecipes.remove(recipe) // Ensure it's removed from bookmarks too
                         upvotedRecipes.remove(recipe) // Ensure it's removed from upvotes too
                     },
