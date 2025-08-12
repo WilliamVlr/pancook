@@ -132,38 +132,41 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            Button(
-                onClick = {
-                    focusManager.clearFocus(force = true)
+            Column {
+                Button(
+                    onClick = {
+                        focusManager.clearFocus(force = true)
 
-                    viewModel.updateName(nameField.text)
-                    viewModel.updateEmail(emailField.text)
-                    viewModel.saveProfile()
-                },
-                modifier = Modifier.width(200.dp),
-                shape = RoundedCornerShape(10.dp)
-            ) {
-                Text("Save",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = nunito
-                )
+                        viewModel.updateName(nameField.text)
+                        viewModel.updateEmail(emailField.text)
+                        viewModel.saveProfile()
+                    },
+                    modifier = Modifier.width(200.dp),
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Text("Save",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = nunito
+                    )
+                }
+
+                Spacer(Modifier.height(8.dp))
+
+                OutlinedButton(
+                    onClick = onLogout, // Call the passed-in logout function
+                    modifier = Modifier
+                        .padding(bottom = 64.dp)
+                        .width(200.dp),
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Text("Logout",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = nunito
+                    )
+                }
             }
-        }
-
-        OutlinedButton(
-            onClick = onLogout, // Call the passed-in logout function
-            modifier = Modifier
-                .align(Alignment.BottomCenter) // Align to the bottom center of the Box
-                .padding(bottom = 64.dp)
-                .width(200.dp),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Text("Logout",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = nunito
-            )
         }
     }
 }
