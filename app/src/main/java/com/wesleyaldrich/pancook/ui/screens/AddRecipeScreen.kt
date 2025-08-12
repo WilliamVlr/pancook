@@ -629,9 +629,17 @@ fun AddRecipeScreen(
                         println("  Step ${index + 1}: ${step.description}, Image: ${step.imageUri}, Timer: ${stepMinutesInt}min ${stepSecondsInt}sec")
                     }
                     // Add actual navigation or data submission logic here
+                    // Find the recipe with ID 4 from the global `allRecipes` list
+                    val saladRecipe = allRecipes.find { it.id == 4 }
+
+                    // Add the recipe to the shared `myRecipe` list
+                    saladRecipe?.let {
+                        myRecipe.add(it)
+                    }
                     navController.navigate(Screen.MyRecipe.route) {
-                        // Pop the back stack to prevent returning to the AddRecipe screen
-                        popUpTo(Screen.MyRecipe.route) {
+                        // Pop the current AddRecipeScreen off the back stack
+                        // so the user can't press back to return here.
+                        popUpTo(Screen.Add.route) {
                             inclusive = true
                         }
                     }
