@@ -46,6 +46,9 @@ import com.wesleyaldrich.pancook.ui.theme.poppins
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.border
 import androidx.compose.ui.graphics.SolidColor
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.wesleyaldrich.pancook.ui.navigation.Screen
 
 // Data class for Ingredient (remains unchanged)
 data class Ingredient(
@@ -67,6 +70,7 @@ data class Step(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddRecipeScreen(
+    navController: NavHostController, // Add this parameter
     onBackPressed: () -> Unit
 ) {
     var imageUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
@@ -625,6 +629,12 @@ fun AddRecipeScreen(
                         println("  Step ${index + 1}: ${step.description}, Image: ${step.imageUri}, Timer: ${stepMinutesInt}min ${stepSecondsInt}sec")
                     }
                     // Add actual navigation or data submission logic here
+                    navController.navigate(Screen.MyRecipe.route) {
+                        // Pop the back stack to prevent returning to the AddRecipe screen
+                        popUpTo(Screen.MyRecipe.route) {
+                            inclusive = true
+                        }
+                    }
                 },
                 modifier = Modifier
                     .weight(1f) // Takes half the width
@@ -1128,6 +1138,7 @@ fun UnitDropdownField(
 @Composable
 fun AddRecipeScreenPreview() {
     PancookTheme {
-        AddRecipeScreen(onBackPressed = {})
+        val navController = rememberNavController()
+        AddRecipeScreen(navController = navController,onBackPressed = {})
     }
 }

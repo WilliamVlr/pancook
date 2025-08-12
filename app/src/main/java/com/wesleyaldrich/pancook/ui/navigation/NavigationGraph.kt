@@ -54,7 +54,9 @@ fun NavigationGraph(
         // --- Screens outside the bottom bar flow remain here ---
 
         composable(Screen.Add.route) {
-            AddRecipeScreen(onBackPressed = { navController.popBackStack() })
+            AddRecipeScreen(
+                navController = navController,
+                onBackPressed = { navController.popBackStack() })
         }
         composable(Screen.GroceryList.route) {
             GroceryScreen(
